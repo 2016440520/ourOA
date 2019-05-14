@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springjdbc.mapper.FileMapper">
+    <insert id="save">
+        insert into file(fileUploader,path,fileName)values (#{fileUploader},#{path},#{fileName})
+    </insert>
+
+    <select id="selectById" resultType="com.springjdbc.pojo.File">
+        select * from file where id = #{id}
+    </select>
+
+</mapper>

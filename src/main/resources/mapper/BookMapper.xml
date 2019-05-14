@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springjdbc.mapper.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.springjdbc.pojo.Book" >
+    <id column="book_id" property="bookId" jdbcType="INTEGER" />
+    <result column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="bookstate" property="bookstate" jdbcType="VARCHAR" />
+    <result column="srarttime" property="srarttime" jdbcType="VARCHAR" />
+    <result column="endetime" property="endetime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    book_id, room_id, user_id, bookstate, srarttime, endetime
+  </sql>
+  <select id="selectBookByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteBookByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertBook" parameterType="com.springjdbc.pojo.Book" >
+    insert into book (book_id, room_id, user_id, 
+      bookstate, srarttime, endetime
+      )
+    values (#{bookId,jdbcType=INTEGER}, #{roomId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{bookstate,jdbcType=VARCHAR}, #{srarttime,jdbcType=VARCHAR}, #{endetime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertBookSelective" parameterType="com.springjdbc.pojo.Book" >
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="bookstate != null" >
+        bookstate,
+      </if>
+      <if test="srarttime != null" >
+        srarttime,
+      </if>
+      <if test="endetime != null" >
+        endetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bookstate != null" >
+        #{bookstate,jdbcType=VARCHAR},
+      </if>
+      <if test="srarttime != null" >
+        #{srarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endetime != null" >
+        #{endetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateBookByPrimaryKeySelective" parameterType="com.springjdbc.pojo.Book" >
+    update book
+    <set >
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bookstate != null" >
+        bookstate = #{bookstate,jdbcType=VARCHAR},
+      </if>
+      <if test="srarttime != null" >
+        srarttime = #{srarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endetime != null" >
+        endetime = #{endetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateBookByPrimaryKey" parameterType="com.springjdbc.pojo.Book" >
+    update book
+    set room_id = #{roomId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      bookstate = #{bookstate,jdbcType=VARCHAR},
+      srarttime = #{srarttime,jdbcType=VARCHAR},
+      endetime = #{endetime,jdbcType=VARCHAR}
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectBookByRoomId" resultType="com.springjdbc.pojo.Book">
+    select * from book where room_id=#{roomId} and bookstate='true'
+  </select>
+</mapper>

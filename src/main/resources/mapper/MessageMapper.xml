@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springjdbc.mapper.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.springjdbc.pojo.Message" >
+    <id column="message_id" property="messageId" jdbcType="INTEGER" />
+    <result column="address_id" property="addressId" jdbcType="INTEGER" />
+    <result column="address_name" property="addressName" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="isSend" property="issend" jdbcType="BIT" />
+    <result column="isRead" property="isread" jdbcType="BIT" />
+    <result column="receiver_id" property="receiverId" jdbcType="INTEGER" />
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
+    <result column="addressDelete" property="addressdelete" jdbcType="BIT" />
+    <result column="receiverDelete" property="receiverdelete" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    message_id, address_id, address_name, title, content, date, isSend, isRead, receiver_id, 
+    receiver_name, addressDelete, receiverDelete
+  </sql>
+  <select id="selectMessageByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteMessageByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertMessage" parameterType="com.springjdbc.pojo.Message" >
+    insert into message (message_id, address_id, address_name, 
+      title, content, date, 
+      isSend, isRead, receiver_id, 
+      receiver_name, addressDelete, receiverDelete
+      )
+    values (#{messageId,jdbcType=INTEGER}, #{addressId,jdbcType=INTEGER}, #{addressName,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{issend,jdbcType=BIT}, #{isread,jdbcType=BIT}, #{receiverId,jdbcType=INTEGER}, 
+      #{receiverName,jdbcType=VARCHAR}, #{addressdelete,jdbcType=BIT}, #{receiverdelete,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertMessageSelective" parameterType="com.springjdbc.pojo.Message" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="addressName != null" >
+        address_name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="issend != null" >
+        isSend,
+      </if>
+      <if test="isread != null" >
+        isRead,
+      </if>
+      <if test="receiverId != null" >
+        receiver_id,
+      </if>
+      <if test="receiverName != null" >
+        receiver_name,
+      </if>
+      <if test="addressdelete != null" >
+        addressDelete,
+      </if>
+      <if test="receiverdelete != null" >
+        receiverDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="addressName != null" >
+        #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="issend != null" >
+        #{issend,jdbcType=BIT},
+      </if>
+      <if test="isread != null" >
+        #{isread,jdbcType=BIT},
+      </if>
+      <if test="receiverId != null" >
+        #{receiverId,jdbcType=INTEGER},
+      </if>
+      <if test="receiverName != null" >
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressdelete != null" >
+        #{addressdelete,jdbcType=BIT},
+      </if>
+      <if test="receiverdelete != null" >
+        #{receiverdelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateMessageByPrimaryKeySelective" parameterType="com.springjdbc.pojo.Message" >
+    update message
+    <set >
+      <if test="addressId != null" >
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="addressName != null" >
+        address_name = #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="issend != null" >
+        isSend = #{issend,jdbcType=BIT},
+      </if>
+      <if test="isread != null" >
+        isRead = #{isread,jdbcType=BIT},
+      </if>
+      <if test="receiverId != null" >
+        receiver_id = #{receiverId,jdbcType=INTEGER},
+      </if>
+      <if test="receiverName != null" >
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressdelete != null" >
+        addressDelete = #{addressdelete,jdbcType=BIT},
+      </if>
+      <if test="receiverdelete != null" >
+        receiverDelete = #{receiverdelete,jdbcType=BIT},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateMessageByPrimaryKey" parameterType="com.springjdbc.pojo.Message" >
+    update message
+    set address_id = #{addressId,jdbcType=INTEGER},
+      address_name = #{addressName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      isSend = #{issend,jdbcType=BIT},
+      isRead = #{isread,jdbcType=BIT},
+      receiver_id = #{receiverId,jdbcType=INTEGER},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      addressDelete = #{addressdelete,jdbcType=BIT},
+      receiverDelete = #{receiverdelete,jdbcType=BIT}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectMessageByUserId" resultType="com.springjdbc.pojo.Message">
+    select * from message where receiver_id=#{receiverId}
+  </select>
+
+</mapper>

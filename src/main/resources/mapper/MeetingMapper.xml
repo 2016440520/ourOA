@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springjdbc.mapper.MeetingMapper" >
+  <resultMap id="BaseResultMap" type="com.springjdbc.pojo.Meeting" >
+    <id column="meeting_id" property="meetingId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="theme" property="theme" jdbcType="VARCHAR" />
+    <result column="srarttime" property="srarttime" jdbcType="VARCHAR" />
+    <result column="record" property="record" jdbcType="VARCHAR" />
+    <result column="endetime" property="endetime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    meeting_id, user_id, room_id, theme, srarttime, record, endetime
+  </sql>
+  <select id="selectMeetingByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from meeting
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteMeetingByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from meeting
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertMeeting" parameterType="com.springjdbc.pojo.Meeting" >
+    insert into meeting (meeting_id, user_id, room_id, 
+      theme, srarttime, record, 
+      endetime)
+    values (#{meetingId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{roomId,jdbcType=INTEGER}, 
+      #{theme,jdbcType=VARCHAR}, #{srarttime,jdbcType=VARCHAR}, #{record,jdbcType=VARCHAR}, 
+      #{endetime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertMeetingSelective" parameterType="com.springjdbc.pojo.Meeting" >
+    insert into meeting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="meetingId != null" >
+        meeting_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="theme != null" >
+        theme,
+      </if>
+      <if test="srarttime != null" >
+        srarttime,
+      </if>
+      <if test="record != null" >
+        record,
+      </if>
+      <if test="endetime != null" >
+        endetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="meetingId != null" >
+        #{meetingId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="theme != null" >
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="srarttime != null" >
+        #{srarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record != null" >
+        #{record,jdbcType=VARCHAR},
+      </if>
+      <if test="endetime != null" >
+        #{endetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateMeetingByPrimaryKeySelective" parameterType="com.springjdbc.pojo.Meeting" >
+    update meeting
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="theme != null" >
+        theme = #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="srarttime != null" >
+        srarttime = #{srarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record != null" >
+        record = #{record,jdbcType=VARCHAR},
+      </if>
+      <if test="endetime != null" >
+        endetime = #{endetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateMeetingByPrimaryKey" parameterType="com.springjdbc.pojo.Meeting" >
+    update meeting
+    set user_id = #{userId,jdbcType=INTEGER},
+      room_id = #{roomId,jdbcType=INTEGER},
+      theme = #{theme,jdbcType=VARCHAR},
+      srarttime = #{srarttime,jdbcType=VARCHAR},
+      record = #{record,jdbcType=VARCHAR},
+      endetime = #{endetime,jdbcType=VARCHAR}
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+</mapper>

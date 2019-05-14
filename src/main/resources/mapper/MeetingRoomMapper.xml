@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springjdbc.mapper.MeetingRoomMapper" >
+  <resultMap id="BaseResultMap" type="com.springjdbc.pojo.MeetingRoom" >
+    <id column="meetingroom_id" property="meetingroomId" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="INTEGER" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="use_account" property="useAccount" jdbcType="VARCHAR" />
+    <result column="device_condition" property="deviceCondition" jdbcType="VARCHAR" />
+    <result column="isFree" property="isfree" jdbcType="BIT" />
+    <result column="isBook" property="isbook" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    meetingroom_id, account, location, use_account, device_condition, isFree, isBook
+  </sql>
+  <select id="selectMeetingRoomByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from meetingroom
+    where meetingroom_id = #{meetingroomId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteMeetingRoomByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from meetingroom
+    where meetingroom_id = #{meetingroomId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertMeetingRoom" parameterType="com.springjdbc.pojo.MeetingRoom" >
+    insert into meetingroom (meetingroom_id, account, location, 
+      use_account, device_condition, isFree, 
+      isBook)
+    values (#{meetingroomId,jdbcType=INTEGER}, #{account,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, 
+      #{useAccount,jdbcType=VARCHAR}, #{deviceCondition,jdbcType=VARCHAR}, #{isfree,jdbcType=BIT}, 
+      #{isbook,jdbcType=BIT})
+  </insert>
+  <insert id="insertMeetingRoomSelective" parameterType="com.springjdbc.pojo.MeetingRoom" >
+    insert into meetingroom
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="meetingroomId != null" >
+        meetingroom_id,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="useAccount != null" >
+        use_account,
+      </if>
+      <if test="deviceCondition != null" >
+        device_condition,
+      </if>
+      <if test="isfree != null" >
+        isFree,
+      </if>
+      <if test="isbook != null" >
+        isBook,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="meetingroomId != null" >
+        #{meetingroomId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=INTEGER},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="useAccount != null" >
+        #{useAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCondition != null" >
+        #{deviceCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="isfree != null" >
+        #{isfree,jdbcType=BIT},
+      </if>
+      <if test="isbook != null" >
+        #{isbook,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateMeetingRoomByPrimaryKeySelective" parameterType="com.springjdbc.pojo.MeetingRoom" >
+    update meetingroom
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=INTEGER},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="useAccount != null" >
+        use_account = #{useAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCondition != null" >
+        device_condition = #{deviceCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="isfree != null" >
+        isFree = #{isfree,jdbcType=BIT},
+      </if>
+      <if test="isbook != null" >
+        isBook = #{isbook,jdbcType=BIT},
+      </if>
+    </set>
+    where meetingroom_id = #{meetingroomId,jdbcType=INTEGER}
+  </update>
+  <update id="updateMeetingRoomByPrimaryKey" parameterType="com.springjdbc.pojo.MeetingRoom" >
+    update meetingroom
+    set account = #{account,jdbcType=INTEGER},
+      location = #{location,jdbcType=VARCHAR},
+      use_account = #{useAccount,jdbcType=VARCHAR},
+      device_condition = #{deviceCondition,jdbcType=VARCHAR},
+      isFree = #{isfree,jdbcType=BIT},
+      isBook = #{isbook,jdbcType=BIT}
+    where meetingroom_id = #{meetingroomId,jdbcType=INTEGER}
+  </update>
+</mapper>
